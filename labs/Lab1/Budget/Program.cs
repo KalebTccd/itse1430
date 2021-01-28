@@ -13,7 +13,7 @@ namespace Budget
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Budget\r\nITSE 1430\r\nSpring 2021\r\nKaleb Dreier\r\n\r\n");
         }
     }
 }
