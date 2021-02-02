@@ -12,48 +12,111 @@ namespace MovieLibrary
     {
         static void Main()
         {
-            AddMovie();
-            DisplayMainMenu();
+            bool done = false;
+            do
+            {
+                char option = DisplayMainMenu();
+                if (option == 'A')
+                    AddMovie();
+                if (option == 'V')
+                    ViewMovie();
+                else if (option == 'Q')
+                    done = true;
+                else
+                    DisplayError("wait how, unknown command");
+
+            } while (!done);
         }
 
-        private static void DisplayMainMenu ()
+        private static void ViewMovie ()
+        {
+            Console.WriteLine(title);
+            Console.WriteLine(description);
+            Console.WriteLine(releaseYear);
+            Console.WriteLine(runLength);
+            Console.WriteLine(rating);
+            Console.WriteLine(isClassic);
+        }
+
+        private static char DisplayMainMenu ()
         {
             Console.WriteLine("Movie Library");
             Console.WriteLine("-------------");
             Console.WriteLine("A) Add Movie");
+            Console.WriteLine("V) View Movie");
             Console.WriteLine("Q) Quit");
-            string input = Console.ReadLine();
+            do
+            {
+                string input = Console.ReadLine();
+                if (input == "A" || input == "a")
+                    return 'A';
+                else if (input == "V" || input == "v")
+                    return 'V';
+                else if (input == "Q" || input == "q")
+                    return 'Q';
+                DisplayError("Invalid option");
+            } while (true);
         }
         static void AddMovie()
         {
             Console.WriteLine("Enter a title: ");
-            string title = Console.ReadLine();
+            title = Console.ReadLine();
 
             Console.WriteLine("Enter an optional description: ");
-            string description = Console.ReadLine();
+            description = Console.ReadLine();
 
             Console.WriteLine("Enter a release year: ");
-            int releaseYear = ReadInt32();
+            releaseYear = ReadInt32(1900);
 
             Console.WriteLine("Enter the run length in minutes: ");
-            int runLength = ReadInt32();
+            runLength = ReadInt32(0);
 
             Console.WriteLine("Enter the rating: ");
-            string rating = Console.ReadLine();
+            rating = Console.ReadLine();
 
             Console.WriteLine("Is a Classic (Y/N)? ");
-            bool isClassic = ReadBoolean();
+            isClassic = ReadBoolean();
+            ViewMovie();
         }
-        static int ReadInt32()
+        static string title;
+        static string description;
+        static int releaseYear;
+        static int runLength;
+        static string rating;
+        static bool isClassic;
+        static int ReadInt32 ()
         {
-            string input = Console.ReadLine();
-            int value = Int32.Parse(input);
-            return value;
+            return ReadInt32(Int32.MinValue);
         }
+        static int ReadInt32(int minimumValue)
+        {
+            do
+            {
+                string input = Console.ReadLine();
+                if (Int32.TryParse(input, out int result))
+                {
+                    return result;
+                }
+                DisplayError("Value must be numeric");
+            } while (true);
+        }
+
+        private static void DisplayError ( string message )
+        {
+            Console.WriteLine(message);
+        }
+
         static bool ReadBoolean()
         {
-            ConsoleKeyInfo key = Console.ReadKey();
-            return true;
+            do
+            {
+                string input = Console.ReadLine();
+                if (input == "Y" || input =="y")
+                    return true;
+                else if (input == "N" || input == "n")
+                    return false;
+                DisplayError("Please enter either Y or N");
+            } while (true);
         }
         void DemoVariables()
         {
@@ -64,3 +127,9 @@ namespace MovieLibrary
         }
     }
 }
+//if (x==0)
+//{true }
+//else
+//{false }
+//same as
+//x == 0 ? true : false
