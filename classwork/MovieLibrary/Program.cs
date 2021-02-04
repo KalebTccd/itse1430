@@ -95,7 +95,10 @@ namespace MovieLibrary
                 string input = Console.ReadLine();
                 if (Int32.TryParse(input, out int result))
                 {
-                    return result;
+                    if (result >= minimumValue)
+                        return result;
+                    else
+                        DisplayError("Value must be at least " + minimumValue);
                 }
                 DisplayError("Value must be numeric");
             } while (true);
