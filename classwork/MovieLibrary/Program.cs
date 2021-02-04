@@ -16,26 +16,27 @@ namespace MovieLibrary
             do
             {
                 char option = DisplayMainMenu();
-                if (option == 'A')
-                    AddMovie();
-                if (option == 'V')
-                    ViewMovie();
-                else if (option == 'Q')
-                    done = true;
-                else
-                    DisplayError("wait how, unknown command");
+                switch (option)
+                {
+                    case 'A': AddMovie(); break;
+                    case 'V': ViewMovie(); break;
+                    case 'Q': done = true; break;
+                    default: DisplayError("wait how, unknown command"); break;
+                };
 
             } while (!done);
         }
 
         private static void ViewMovie ()
         {
-            Console.WriteLine(title);
-            Console.WriteLine(description);
-            Console.WriteLine(releaseYear);
-            Console.WriteLine(runLength);
-            Console.WriteLine(rating);
-            Console.WriteLine(isClassic);
+            Console.WriteLine($"{title} ({releaseYear})");
+            if (runLength > 0)
+                Console.WriteLine($"Running Time: {runLength} minutes");
+            if (!String.IsNullOrEmpty(rating))
+                Console.WriteLine($"MPAA Rating: {rating}");
+            Console.WriteLine($"Classic? {(isClassic ? 'Y' : 'N')}");
+            if (!String.IsNullOrEmpty(description))
+                Console.WriteLine(description);
         }
 
         private static char DisplayMainMenu ()
@@ -48,13 +49,19 @@ namespace MovieLibrary
             do
             {
                 string input = Console.ReadLine();
-                if (input == "A" || input == "a")
-                    return 'A';
-                else if (input == "V" || input == "v")
-                    return 'V';
-                else if (input == "Q" || input == "q")
-                    return 'Q';
-                DisplayError("Invalid option");
+                switch (input)
+                {
+                    case "A":
+                    case "a": return 'A';
+
+                    case "Q":
+                    case "q": return 'Q';
+
+                    case "V":
+                    case "v": return 'V';
+
+                    default: DisplayError("Invalid option"); break;
+                }
             } while (true);
         }
         static void AddMovie()
