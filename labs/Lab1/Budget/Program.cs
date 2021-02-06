@@ -79,6 +79,10 @@ namespace Budget
                 DisplayError("Value must be numeric");
             } while (true);
         }
+        static char DisplayMenu()
+        {
+
+        }
         static void DisplayError ( string message )
         {
             Console.WriteLine(message);
