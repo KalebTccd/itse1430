@@ -81,7 +81,7 @@ namespace Budget
         }
         static char DisplayMenu()
         {
-
+            return 'c';
         }
         static void DisplayError ( string message )
         {
