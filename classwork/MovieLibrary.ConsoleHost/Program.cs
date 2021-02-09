@@ -6,7 +6,7 @@
  */
 using System;
 
-namespace MovieLibrary
+namespace MovieLibrary.ConsoleHost
 {
     class Program
     {
