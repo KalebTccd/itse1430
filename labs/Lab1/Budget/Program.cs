@@ -25,6 +25,7 @@ namespace Budget
                 switch(option)
                 {
                     case 'D': DepositMoney(); break;
+                    case 'W': WithdrawMoney(); break;
                     case 'Q': done = QuitProgram(); break;
                     default: DisplayError("wait how, unknown command"); break;
                 };
@@ -86,6 +87,59 @@ namespace Budget
             } while (true);
         }
 
+        static decimal ReadWithdraw ( decimal minimumValue )
+        {
+            do
+            {
+                string input = Console.ReadLine();
+                if (Decimal.TryParse(input, out decimal result))
+                {
+                    if (result > s_startingBalance)
+                        DisplayError("Value cannot be more than balance");
+                    else if (result >= minimumValue)
+                        return result;
+                    else
+                        DisplayError("Value must be at least " + minimumValue);
+                }
+                DisplayError("Value must be numeric");
+            } while (true);
+        }
+
+        static int ReadInt32 ( int minimumValue )
+        {
+            do
+            {
+                string input = Console.ReadLine();
+                if (Int32.TryParse(input, out int result))
+                {
+                    if (result >= minimumValue)
+                        return result;
+                    else
+                        DisplayError("Value must be at least " + minimumValue);
+                } 
+                else
+                {
+                    return 0;
+                }
+            } while (true);
+        }
+
+        static DateTime ReadDateTime ()
+        {
+            do
+            {
+                string input = Console.ReadLine();
+                if (DateTime.TryParse(input, out DateTime result))
+                {
+                    return result;
+                }
+                else
+                {
+                    return DateTime.Now;
+                }
+            } while (true);
+        }
+
         static char DisplayMenu()
         {
             Console.WriteLine("Budget Manager");
@@ -95,6 +149,7 @@ namespace Budget
             Console.WriteLine($"Account Balance: {s_startingBalance.ToString("C")}");
             Console.WriteLine("-------------");
             Console.WriteLine("D) Deposit Money");
+            Console.WriteLine("W) Withdraw Money");
             Console.WriteLine("Q) Quit");
             do
             {
@@ -103,6 +158,9 @@ namespace Budget
                 {
                     case "D":
                     case "d": return 'D';
+
+                    case "W":
+                    case "w": return 'W';
 
                     case "Q":
                     case "q": return 'Q';
@@ -120,10 +178,32 @@ namespace Budget
                 return;
             Console.WriteLine("Please enter a description: ");
             string description = CheckBlank();
+            Console.WriteLine("Please enter a Category: ");
             string category = Console.ReadLine();
-
+            Console.WriteLine("Please enter a check number: ");
+            int checkNumber = ReadInt32(0);
+            Console.WriteLine("Please enter a date: ");
+            DateTime date = ReadDateTime();
             s_startingBalance += deposit;
         }
+
+        static void WithdrawMoney ()
+        {
+            Console.WriteLine("Please enter a value to withdraw: ");
+            decimal deposit = ReadWithdraw(0);
+            if (deposit == 0)
+                return;
+            Console.WriteLine("Please enter a description: ");
+            string description = CheckBlank();
+            Console.WriteLine("Please enter a Category: ");
+            string category = Console.ReadLine();
+            Console.WriteLine("Please enter a check number: ");
+            int checkNumber = ReadInt32(0);
+            Console.WriteLine("Please enter a date: ");
+            DateTime date = ReadDateTime();
+            s_startingBalance -= deposit;
+        }
+
         static string CheckBlank ()
         {
             string temp;
