@@ -36,6 +36,11 @@ namespace MovieLibrary
         // fields are initialized in an undefined order
         // fields cannot be initialized to another field's value
 
+        void IsBlackAndWhite()
+        {
+            var isOld = releaseYear < 1940;
+        }
+
         /// <summary>Gets or sets the title.</summary>
         public string title = "";
 
