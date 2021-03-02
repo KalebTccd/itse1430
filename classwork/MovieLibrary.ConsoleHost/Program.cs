@@ -2,7 +2,6 @@
  * ITSE 1430
  * Spring 2021
  * Sample Implementation
- * Kaleb Dreier
  */
 using System;  //Bring into scope all the types defined in the given namespace
 
@@ -17,6 +16,9 @@ namespace MovieLibrary.ConsoleHost
 {
     class Program  //MovieLibrary.ConsoleHost.Program
     {
+        public Program ()
+        { }
+
         static void Main ()  //(string[] args)
         {
             //System.Collections.ArrayList
@@ -111,7 +113,7 @@ namespace MovieLibrary.ConsoleHost
                     case "a": return 'A';
 
                     case "Q":
-                    case "q": return 'V';
+                    case "q": return 'Q';
 
                     case "V":
                     case "v": return 'v';
@@ -124,51 +126,86 @@ namespace MovieLibrary.ConsoleHost
         // Get movie from user
         static void AddMovie ()
         {
+            // Object creation
+            //   1. Allocates memory to store class fields
+            //   2. All fields are initialized to default or field initializer
+            //   3. Calls constructor
+            //   Only 1 constructor will ever be called
+
             // new T();
             // Movie* movie = new Movie();
-            Movie movie = new Movie();
+            Movie movie;
+            movie = new Movie("Default Title");
+            movie = new Movie();
 
             //Member access operator 
             //   member-access  ::= E . Member            
 
             // title, release year, run length (min), description, rating
             Console.Write("Enter a title: ");
-            movie.title = Console.ReadLine();
+            movie.Title = Console.ReadLine();   // movie.set_Title(Console.ReadLine());
 
             Console.Write("Enter an optional description: ");
-            movie.description = Console.ReadLine();
+            movie.Description = Console.ReadLine();
 
             Console.Write("Enter a release year: ");
-            movie.releaseYear = ReadInt32(1900);
+            movie.ReleaseYear = ReadInt32(Movie.MinimumReleaseYear);
 
             Console.Write("Enter the run length in minutes: ");
-            movie.runLength = ReadInt32(0);
+            movie.RunLength = ReadInt32(-1);
+            //Console.WriteLine(movie.RunLength);
+            //for (var index = 0; index < 1000; ++index)
+            //{
+            //    Console.WriteLine(movie.RunLength);
+            //};            
 
             Console.Write("Enter the rating: ");
-            movie.rating = Console.ReadLine();
+            movie.Rating = Console.ReadLine();
 
             Console.Write("Is a Classic (Y/N)? ");
-            movie.isClassic = ReadBoolean();
+            movie.IsClassic = ReadBoolean();
+
+            var validator = new ObjectValidator(movie);
+
+            //Validate movie
+            if (!movie.Validate(out var message))
+            {
+                DisplayError($"Invalid movie: {message}");
+                return;
+            };
 
             //Hiding the field movie
             //this.movie = movie;
             _movie = movie;
+
+            var movie2 = new Movie();
+            movie2.Title = "Jaws 2";
+            movie2.ReleaseYear = 1930;
+
+            movie2.IsBlackAndWhite();
+            movie.IsBlackAndWhite();
+            //movie.DoComplex(1970, true);
+
+            // Readable but not writable
+            var age = movie.AgeInYears;
+            //movie.AgeInYears = 10;
 
             ViewMovie();
         }
 
         static void ViewMovie ()
         {
-            Console.WriteLine($"{_movie.title} ({_movie.releaseYear})");
-            if (_movie.runLength > 0)
-                Console.WriteLine($"Running Time: {_movie.runLength} minutes");
-            if (!String.IsNullOrEmpty(_movie.rating))
-                Console.WriteLine($"MPAA Rating: {_movie.rating}");
+            //_movie.get_Title()
+            Console.WriteLine($"{_movie.Title} ({_movie.ReleaseYear})");
+            if (_movie.RunLength > 0)
+                Console.WriteLine($"Running Time: {_movie.RunLength} minutes");
+            if (!String.IsNullOrEmpty(_movie.Rating))
+                Console.WriteLine($"MPAA Rating: {_movie.Rating}");
 
-            Console.WriteLine($"Classic? {(_movie.isClassic ? 'Y' : 'N')}");
+            Console.WriteLine($"Classic? {(_movie.IsClassic ? 'Y' : 'N')}");
 
-            if (!String.IsNullOrEmpty(_movie.description))
-                Console.WriteLine(_movie.description);
+            if (!String.IsNullOrEmpty(_movie.Description))
+                Console.WriteLine(_movie.Description);
         }
 
         // Reads a boolean value from the console.
@@ -578,160 +615,49 @@ namespace MovieLibrary.ConsoleHost
             // no abbreviations or acronyms unless they are well known (good: ok, bad: nbr, num)
         }
 
+        static void DemoTypeChecking ()
+        {
+            // Type checking - programmer determining type of an expression
+            // Type casting - programmer tells compiler type of expression
+            // Type coercion - compiler determines type of expression
+
+            double payRate = 7.5;
+            int pay;
+
+            // Type checking
+            //   1. C-style cast ::= (T)E
+            //        Crashes if invalid
+            //        Always compiler verified  (int)"Hello";
+            pay = (int)payRate;
+
+            //   2. as operator ::=  E as T
+            //       Converts an expression to the given type, if valid, or null otherwise
+            //       Only works with classes
+            object m = null;
+            Program p;
+            //p = (Program)m;
+            p = m as Program;   // At runtime if m is compatible with Program, returns m as a Program else returns null
+            if (p != null)
+            {
+                //Do something with result
+            };
+
+            //  3. is operator ::= E is T => bool
+            //        type checking, not type casting
+            //        works with all types
+            if (m is Program)
+            {
+                p = (Program)m;
+            };
+
+            //  Preferred approach
+            //  4. pattern matching operator ::= E is T id => bool
+            //           bool TryParse(out var result)
+            if (m is Program prog)
+            {
+                //prog is Program
+            };
+        }
         #endregion
     }
 }
-//using System;
-
-//namespace MovieLibrary.ConsoleHost
-//{
-//    class Program
-//    {
-//        static void Main()
-//        {
-//            var value = 10;
-
-//            if (value / 3 == 0)
-//                Console.WriteLine("3");
-//            else if (value / 10 == 1)
-//                Console.WriteLine("0");
-//            else if (value == 10)
-//                Console.WriteLine("10");
-//            else
-//                Console.WriteLine("None");
-
-
-//            /*
-//            bool done = false;
-//            do
-//            {
-//                char option = DisplayMainMenu();
-//                switch (option)
-//                {
-//                    case 'A': AddMovie(); break;
-//                    case 'V': ViewMovie(); break;
-//                    case 'Q': done = true; break;
-//                    default: DisplayError("wait how, unknown command"); break;
-//                };
-
-//            } while (!done);
-//            */
-//        }
-
-//        private static void ViewMovie ()
-//        {
-//            Console.WriteLine($"{title} ({releaseYear})");
-//            if (runLength > 0)
-//                Console.WriteLine($"Running Time: {runLength} minutes");
-//            if (!String.IsNullOrEmpty(rating))
-//                Console.WriteLine($"MPAA Rating: {rating}");
-//            Console.WriteLine($"Classic? {(isClassic ? 'Y' : 'N')}");
-//            if (!String.IsNullOrEmpty(description))
-//                Console.WriteLine(description);
-//        }
-
-//        private static char DisplayMainMenu ()
-//        {
-//            Console.WriteLine("Movie Library");
-//            Console.WriteLine("-------------");
-//            Console.WriteLine("A) Add Movie");
-//            Console.WriteLine("V) View Movie");
-//            Console.WriteLine("Q) Quit");
-//            do
-//            {
-//                string input = Console.ReadLine();
-//                switch (input)
-//                {
-//                    case "A":
-//                    case "a": return 'A';
-
-//                    case "Q":
-//                    case "q": return 'Q';
-
-//                    case "V":
-//                    case "v": return 'V';
-
-//                    default: DisplayError("Invalid option"); break;
-//                }
-//            } while (true);
-//        }
-//        static void AddMovie()
-//        {
-//            Console.WriteLine("Enter a title: ");
-//            title = Console.ReadLine();
-
-//            Console.WriteLine("Enter an optional description: ");
-//            description = Console.ReadLine();
-
-//            Console.WriteLine("Enter a release year: ");
-//            releaseYear = ReadInt32(1900);
-
-//            Console.WriteLine("Enter the run length in minutes: ");
-//            runLength = ReadInt32(0);
-
-//            Console.WriteLine("Enter the rating: ");
-//            rating = Console.ReadLine();
-
-//            Console.WriteLine("Is a Classic (Y/N)? ");
-//            isClassic = ReadBoolean();
-//            ViewMovie();
-//        }
-//        static string title;
-//        static string description;
-//        static int releaseYear;
-//        static int runLength;
-//        static string rating;
-//        static bool isClassic;
-//        static int ReadInt32 ()
-//        {
-//            return ReadInt32(Int32.MinValue);
-//        }
-//        static int ReadInt32(int minimumValue)
-//        {
-//            do
-//            {
-//                string input = Console.ReadLine();
-//                if (Int32.TryParse(input, out int result))
-//                {
-//                    if (result >= minimumValue)
-//                        return result;
-//                    else
-//                        DisplayError("Value must be at least " + minimumValue);
-//                }
-//                DisplayError("Value must be numeric");
-//            } while (true);
-//        }
-
-//        private static void DisplayError ( string message )
-//        {
-//            Console.WriteLine(message);
-//        }
-
-//        static bool ReadBoolean()
-//        {
-//            do
-//            {
-//                string input = Console.ReadLine();
-//                if (input == "Y" || input =="y")
-//                    return true;
-//                else if (input == "N" || input == "n")
-//                    return false;
-//                DisplayError("Please enter either Y or N");
-//            } while (true);
-//        }
-//        void DemoVariables()
-//        {
-//            string textInput;
-//            textInput = "Hello";
-//            string textInput2 = textInput;
-//            int x = 10, y = 12;
-//        }
-//    }
-//}
-//if (x==0)
-//{true }
-//else
-//{false }
-//same as
-//x == 0 ? true : false
-//light
