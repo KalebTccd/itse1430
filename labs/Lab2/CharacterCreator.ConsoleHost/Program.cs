@@ -27,6 +27,8 @@ namespace CharacterCreator.ConsoleHost
                 {
                     case 'N': CreateCharacter(); break;
                     case 'V': DisplayCharacter(); break;
+                    case 'E': EditCharacter(); break;
+                    case 'D': DeleteCharacter(); break;
                     case 'Q': done = QuitProgram(); break;
                     default: DisplayError("wait how, unknown command"); break;
                 };
@@ -39,6 +41,8 @@ namespace CharacterCreator.ConsoleHost
             Console.WriteLine("-------------");
             Console.WriteLine("N) New Character");
             Console.WriteLine("V) View Character");
+            Console.WriteLine("E) Edit Character");
+            Console.WriteLine("D) Delete Character");
             Console.WriteLine("Q) Quit");
             do
             {
@@ -50,6 +54,12 @@ namespace CharacterCreator.ConsoleHost
 
                     case "V":
                     case "v": return 'V';
+
+                    case "E":
+                    case "e": return 'E';
+
+                    case "D":
+                    case "d": return 'D';
 
                     case "Q":
                     case "q": return 'Q';
@@ -73,6 +83,7 @@ namespace CharacterCreator.ConsoleHost
             s_character.Constitution = GetStats(0, 100, "Constitution");
             s_character.Charisma = GetStats(0, 100, "Charisma");
             Console.WriteLine("Character Created!");
+            Console.WriteLine("-------------");
         }
 
         static string GetString ()
@@ -172,6 +183,86 @@ namespace CharacterCreator.ConsoleHost
                 Console.WriteLine("Agility: " + s_character.Agility);
                 Console.WriteLine("Constitution: " + s_character.Constitution);
                 Console.WriteLine("Charisma: " + s_character.Charisma);
+                Console.WriteLine("-------------");
+            }
+        }
+
+        static void EditCharacter()
+        {
+            if(s_character.Name == null)
+            {
+                CreateCharacter();
+            }
+            if(EditProperty("Name",s_character.Name))
+            {
+                Console.WriteLine("Enter a name: ");
+                s_character.Name = GetString();
+            }
+            if(EditProperty("Profession", s_character.Profession))
+            {
+                s_character.Profession = GetProfession();
+            }
+            if (EditProperty("Race", s_character.Race))
+            {
+                s_character.Race = GetRace();
+            }
+            if (EditProperty("Biography", s_character.Biography))
+            {
+                Console.WriteLine("Type in Biography (optional): ");
+                s_character.Biography = GetStringNoCheck();
+            }
+            if (EditProperty("Strength", s_character.Strength.ToString()))
+            {
+                s_character.Strength = GetStats(0, 100, "Strength");
+            }
+            if (EditProperty("Intelligence", s_character.Intelligence.ToString()))
+            {
+                s_character.Intelligence = GetStats(0, 100, "Intelligence");
+            }
+            if (EditProperty("Agility", s_character.Agility.ToString()))
+            {
+                s_character.Agility = GetStats(0, 100, "Agility");
+            }
+            if (EditProperty("Constitution", s_character.Constitution.ToString()))
+            {
+                s_character.Constitution = GetStats(0, 100, "Constitution");
+            }
+            if (EditProperty("Charisma", s_character.Charisma.ToString()))
+            {
+                s_character.Charisma = GetStats(0, 100, "Charisma");
+            }
+            Console.WriteLine("Character Edited!");
+            DisplayCharacter();
+        }
+
+        static bool EditProperty(string property, string valProperty)
+        {
+            Console.WriteLine("Current " + property + " :" + valProperty);
+            Console.WriteLine("Would you like to edit " + property + "? Y/N: ");
+            return YesNo();
+        }
+
+        static void DeleteCharacter ()
+        {
+            if(s_character.Name == null)
+            {
+                Console.WriteLine("Cannot delete character cause character doesn't exist!");
+                return;
+            }
+            Console.WriteLine("Are You sure you want to delete you character?");
+            if(YesNo())
+            {
+                s_character.Name.Remove(0);
+                s_character.Profession.Remove(0);
+                s_character.Race.Remove(0);
+                s_character.Biography.Remove(0);
+                s_character.Strength = 0;
+                s_character.Intelligence = 0;
+                s_character.Agility = 0;
+                s_character.Constitution = 0;
+                s_character.Charisma = 0;
+                Console.WriteLine("Character Deleted!");
+                Console.WriteLine("-------------");
             }
         }
 
@@ -183,6 +274,11 @@ namespace CharacterCreator.ConsoleHost
         static bool QuitProgram ()
         {
             Console.WriteLine("Are you sure you want to quit? Y/N: ");
+            return YesNo();
+        }
+
+        static bool YesNo ()
+        {
             do
             {
                 string input = Console.ReadLine();
