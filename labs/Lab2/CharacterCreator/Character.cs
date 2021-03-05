@@ -30,7 +30,7 @@ namespace CharacterCreator
         public string Biography
         {
             get { return _biography; }
-            set { _biography = value.Trim(); }
+            set { _biography = value?.Trim() ?? ""; }
         }
         /// <summary>Gets or sets the strength.</summary>
         public int Strength { get; set; }

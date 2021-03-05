@@ -252,15 +252,7 @@ namespace CharacterCreator.ConsoleHost
             Console.WriteLine("Are You sure you want to delete your character?");
             if(YesNo())
             {
-                s_character.Name = null;
-                s_character.Profession = null;
-                s_character.Race = null;
-                s_character.Biography = null;
-                s_character.Strength = 0;
-                s_character.Intelligence = 0;
-                s_character.Agility = 0;
-                s_character.Constitution = 0;
-                s_character.Charisma = 0;
+                s_character = new Character();
                 Console.WriteLine("Character Deleted!");
                 Console.WriteLine("-------------");
             }
