@@ -249,13 +249,13 @@ namespace CharacterCreator.ConsoleHost
                 Console.WriteLine("Cannot delete character cause character doesn't exist!");
                 return;
             }
-            Console.WriteLine("Are You sure you want to delete you character?");
+            Console.WriteLine("Are You sure you want to delete your character?");
             if(YesNo())
             {
-                s_character.Name.Remove(0);
-                s_character.Profession.Remove(0);
-                s_character.Race.Remove(0);
-                s_character.Biography.Remove(0);
+                s_character.Name = null;
+                s_character.Profession = null;
+                s_character.Race = null;
+                s_character.Biography = null;
                 s_character.Strength = 0;
                 s_character.Intelligence = 0;
                 s_character.Agility = 0;
