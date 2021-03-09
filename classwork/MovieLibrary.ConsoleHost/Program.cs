@@ -183,7 +183,7 @@ namespace MovieLibrary.ConsoleHost
             movie2.ReleaseYear = 1930;
 
             //movie2.IsBlackAndWhite();
-           // movie.IsBlackAndWhite();
+            //movie.IsBlackAndWhite();
             //movie.DoComplex(1970, true);
 
             // Readable but not writable

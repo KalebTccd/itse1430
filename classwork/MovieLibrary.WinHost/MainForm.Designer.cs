@@ -1,5 +1,4 @@
-﻿
-namespace MovieLibrary.WinHost
+﻿namespace MovieLibrary.WinHost
 {
     partial class MainForm
     {
@@ -12,7 +11,7 @@ namespace MovieLibrary.WinHost
         ///  Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+        protected override void Dispose ( bool disposing )
         {
             if (disposing && (components != null))
             {
@@ -27,15 +26,35 @@ namespace MovieLibrary.WinHost
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        private void InitializeComponent ()
         {
-            this.components = new System.ComponentModel.Container();
+            this.mainMenu = new System.Windows.Forms.MenuStrip();
+            this.SuspendLayout();
+            // 
+            // mainMenu
+            // 
+            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Name = "mainMenu";
+            this.mainMenu.Size = new System.Drawing.Size(724, 24);
+            this.mainMenu.TabIndex = 0;
+            this.mainMenu.Text = "menuStrip1";
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(724, 383);
+            this.Controls.Add(this.mainMenu);
+            this.MainMenuStrip = this.mainMenu;
+            this.Name = "MainForm";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.MenuStrip mainMenu;
     }
 }
-
