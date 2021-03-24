@@ -2,6 +2,7 @@
 
 namespace MovieLibrary
 {
+    /// <summary>Validates an object.</summary>
     public class ObjectValidator
     {
         //Multiple constructors hidden by accessibility

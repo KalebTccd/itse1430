@@ -163,6 +163,39 @@ namespace MovieLibrary
 
         #region Demo code
 
+        void DemoTypeDifferences ()
+        {
+            // Different kinds of types - reference type or value type
+            //   All types are one or the other, never both
+            //   Memory - Value types are stored on the stack, ref types are stored on the heap (memory)
+            //   Nullability - value types cannot be null, ref types default to null
+            //   Assignment - value types ALWAYS copy the value, ref types copy the reference 
+            //   Equality - value types are equal if values they contain are equal (value semantics), 
+            //              ref types are equal iff they reference the same object in memory (reference semantics)
+            //              Can be customized to a degree 
+            //   Inheritance - value types cannot be derived from, ref types can 
+            //   Default ctor - value types always have one, ref types give you complete control over ctor
+            //   Immutability (guideline) - value types should be immutable, ref types don't care
+            // How do you know which kind?
+            //   Value types - all primitives (except string) are value types; structs
+            //   Reference types - class
+
+            DateTime dt;
+            int valueType = 123;
+            //valueType = null;      Cannot assign null to value type
+            int valueType2 = valueType;  // Pass by value, always copy the value
+            valueType2 = 123;
+            var areEqualValues = valueType == valueType2;   //True
+
+            Movie referenceType = new Movie();
+            referenceType = null;   // Allowed because ref types can be null
+
+            Movie referenceType2 = referenceType;    // Copy the reference to the new variable, both refer to the same instance in memory
+            referenceType2.Title = "Jaws";
+            Console.WriteLine(referenceType.Title);  //Jaws
+            var areEqualRefs = referenceType2 == referenceType; //True
+        }
+
         /// <summary>Determines if movie is black and white.</summary>
         /// <returns>Returns true if movie is black and white.</returns>
         public bool IsBlackAndWhite ( /* Movie this */ )

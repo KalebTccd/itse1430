@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MovieLibrary.WinHost
+namespace CharacterCreator.WinHost
 {
     static class Program
     {
@@ -12,7 +12,7 @@ namespace MovieLibrary.WinHost
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main ()
+        static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
