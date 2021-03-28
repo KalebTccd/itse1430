@@ -16,6 +16,15 @@ namespace CharacterCreator.WinHost
         {
             InitializeComponent();
         }
+        private void OnFileExit ( object sender, EventArgs e )
+        {
+            Close();
+        }
+        private void OnHelpAbout ( object sender, EventArgs e )
+        {
+            var form = new AboutBox();
 
+            form.ShowDialog();
+        }
     }
 }
