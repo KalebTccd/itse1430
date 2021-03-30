@@ -130,7 +130,6 @@ namespace CharacterCreator.WinHost
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxDescription.Location = new System.Drawing.Point(191, 165);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(8, 5, 4, 5);
             this.textBoxDescription.Multiline = true;
