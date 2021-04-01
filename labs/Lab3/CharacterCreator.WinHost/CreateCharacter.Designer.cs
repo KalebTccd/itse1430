@@ -236,6 +236,7 @@ namespace CharacterCreator.WinHost
             this.SaveButton.TabIndex = 19;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.OnSave);
             // 
             // cancelButton
             // 
@@ -250,6 +251,7 @@ namespace CharacterCreator.WinHost
             // 
             // _errors
             // 
+            this._errors.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this._errors.ContainerControl = this;
             // 
             // CreateCharacter

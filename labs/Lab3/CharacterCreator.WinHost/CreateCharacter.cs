@@ -16,14 +16,48 @@ namespace CharacterCreator.WinHost
         {
             InitializeComponent();
         }
+        public Character Character { get; set; }
         private void OnCancel ( object sender, EventArgs e )
         {
+            Close();
+        }
+        private void OnSave ( object sender, EventArgs e )
+        {
+            //Validate UI
+            if (!ValidateChildren())
+            {
+                DialogResult = DialogResult.None;
+                return;
+            };
+
+            //Creating movie
+            var character = SaveCharacter();
+
+            //TODO: Validation
+            if (!character.Validate(out var error))
+            {
+                //Must clear dialog result otherwise form will close anyway
+                MessageBox.Show(this, error, "Save", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult = DialogResult.None;
+                return;
+            };
+
+            Character = character;
+            DialogResult = DialogResult.OK;
             Close();
         }
         private Character SaveCharacter ()
         {
             var character = new Character();
             character.Name = NameLabel.Text;
+            character.Profession = ProfessionComboBox.SelectedItem as string;
+            character.Race = RaceComboBox.SelectedItem as string;
+            character.Biography = BiographyBox.Text;
+            character.Strength = GetInt32(StrengthBox);
+            character.Intelligence = GetInt32(IntelligenceBox);
+            character.Agility = GetInt32(AgilityBox);
+            character.Constitution = GetInt32(ConstitutionBox);
+            character.Constitution = GetInt32(CharismaBox);
             return character;
         }
         private int GetInt32 ( Control control )

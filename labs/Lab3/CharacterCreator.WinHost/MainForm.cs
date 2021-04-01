@@ -34,9 +34,10 @@ namespace CharacterCreator.WinHost
             if (form.ShowDialog(this) == DialogResult.Cancel)
                 return;
 
-            //_movie = form.Movie;
+            _character = form.Character;
 
             //UpdateUI();
         }
+        private Character _character;
     }
 }
