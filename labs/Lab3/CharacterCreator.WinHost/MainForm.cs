@@ -26,5 +26,17 @@ namespace CharacterCreator.WinHost
 
             form.ShowDialog();
         }
+
+        private void OnCharacterAdd ( object sender, EventArgs e )
+        {
+            var form = new CreateCharacter();
+
+            if (form.ShowDialog(this) == DialogResult.Cancel)
+                return;
+
+            //_movie = form.Movie;
+
+            //UpdateUI();
+        }
     }
 }

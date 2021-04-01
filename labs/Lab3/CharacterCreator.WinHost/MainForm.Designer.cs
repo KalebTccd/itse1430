@@ -34,6 +34,8 @@ namespace CharacterCreator.WinHost
             this.fileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.newCharacter = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,7 +44,8 @@ namespace CharacterCreator.WinHost
             this.mainMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
-            this.toolStripMenuItem2});
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(282, 28);
@@ -83,6 +86,23 @@ namespace CharacterCreator.WinHost
             this.HelpAbout.Text = "About";
             this.HelpAbout.Click += new System.EventHandler(this.OnHelpAbout);
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newCharacter});
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(86, 24);
+            this.toolStripMenuItem3.Text = "&Character";
+            // 
+            // newCharacter
+            // 
+            this.newCharacter.Name = "newCharacter";
+            this.newCharacter.ShortcutKeyDisplayString = "Ctrl + N";
+            this.newCharacter.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newCharacter.Size = new System.Drawing.Size(250, 26);
+            this.newCharacter.Text = "New Character";
+            this.newCharacter.Click += new System.EventHandler(this.OnCharacterAdd);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -108,6 +128,8 @@ namespace CharacterCreator.WinHost
         private System.Windows.Forms.ToolStripMenuItem fileExit;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem HelpAbout;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem newCharacter;
     }
 }
 
