@@ -17,6 +17,10 @@ namespace CharacterCreator.WinHost
             InitializeComponent();
         }
         public Character Character { get; set; }
+        protected override void OnFormClosing ( FormClosingEventArgs e )
+        {
+            base.OnFormClosing(e);
+        }
         private void OnCancel ( object sender, EventArgs e )
         {
             Close();
@@ -49,7 +53,7 @@ namespace CharacterCreator.WinHost
         private Character SaveCharacter ()
         {
             var character = new Character();
-            character.Name = NameLabel.Text;
+            character.Name = NameBox.Text;
             character.Profession = ProfessionComboBox.SelectedItem as string;
             character.Race = RaceComboBox.SelectedItem as string;
             character.Biography = BiographyBox.Text;

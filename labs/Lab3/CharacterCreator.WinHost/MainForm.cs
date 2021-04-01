@@ -36,7 +36,16 @@ namespace CharacterCreator.WinHost
 
             _character = form.Character;
 
-            //UpdateUI();
+            UpdateUI();
+        }
+        private void UpdateUI ()
+        {
+            var count = (_character != null) ? 1 : 0;
+            Character[] character = new Character[count];
+            if (_character != null)
+                character[0] = _character;
+            DisplayListBox.DataSource = character;
+            DisplayListBox.DisplayMember = "Name";
         }
         private Character _character;
     }

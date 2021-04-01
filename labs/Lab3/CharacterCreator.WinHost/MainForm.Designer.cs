@@ -36,6 +36,7 @@ namespace CharacterCreator.WinHost
             this.HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.newCharacter = new System.Windows.Forms.ToolStripMenuItem();
+            this.DisplayListBox = new System.Windows.Forms.ListBox();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,11 +104,22 @@ namespace CharacterCreator.WinHost
             this.newCharacter.Text = "New Character";
             this.newCharacter.Click += new System.EventHandler(this.OnCharacterAdd);
             // 
+            // DisplayListBox
+            // 
+            this.DisplayListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DisplayListBox.FormattingEnabled = true;
+            this.DisplayListBox.ItemHeight = 20;
+            this.DisplayListBox.Location = new System.Drawing.Point(0, 28);
+            this.DisplayListBox.Name = "DisplayListBox";
+            this.DisplayListBox.Size = new System.Drawing.Size(282, 375);
+            this.DisplayListBox.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(282, 403);
+            this.Controls.Add(this.DisplayListBox);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(260, 420);
@@ -130,6 +142,7 @@ namespace CharacterCreator.WinHost
         private System.Windows.Forms.ToolStripMenuItem HelpAbout;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem newCharacter;
+        private System.Windows.Forms.ListBox DisplayListBox;
     }
 }
 
