@@ -37,6 +37,7 @@ namespace CharacterCreator.WinHost
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.newCharacter = new System.Windows.Forms.ToolStripMenuItem();
             this.editCharacter = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteCharacter = new System.Windows.Forms.ToolStripMenuItem();
             this.DisplayListBox = new System.Windows.Forms.ListBox();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -92,7 +93,8 @@ namespace CharacterCreator.WinHost
             // 
             this.toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newCharacter,
-            this.editCharacter});
+            this.editCharacter,
+            this.deleteCharacter});
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(86, 24);
             this.toolStripMenuItem3.Text = "&Character";
@@ -114,6 +116,15 @@ namespace CharacterCreator.WinHost
             this.editCharacter.Size = new System.Drawing.Size(250, 26);
             this.editCharacter.Text = "Edit Character";
             this.editCharacter.Click += new System.EventHandler(this.OnCharacterEdit);
+            // 
+            // deleteCharacter
+            // 
+            this.deleteCharacter.Name = "deleteCharacter";
+            this.deleteCharacter.ShortcutKeyDisplayString = "del";
+            this.deleteCharacter.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.deleteCharacter.Size = new System.Drawing.Size(250, 26);
+            this.deleteCharacter.Text = "Delete Character";
+            this.deleteCharacter.Click += new System.EventHandler(this.OnCharacterDelete);
             // 
             // DisplayListBox
             // 
@@ -155,6 +166,7 @@ namespace CharacterCreator.WinHost
         private System.Windows.Forms.ToolStripMenuItem newCharacter;
         private System.Windows.Forms.ListBox DisplayListBox;
         private System.Windows.Forms.ToolStripMenuItem editCharacter;
+        private System.Windows.Forms.ToolStripMenuItem deleteCharacter;
     }
 }
 

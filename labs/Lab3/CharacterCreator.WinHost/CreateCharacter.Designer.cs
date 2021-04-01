@@ -50,8 +50,8 @@ namespace CharacterCreator.WinHost
             this.CharismaBox = new System.Windows.Forms.TextBox();
             this.SaveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this._errors = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this._errors)).BeginInit();
+            this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // NameLabel
@@ -249,15 +249,16 @@ namespace CharacterCreator.WinHost
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.OnCancel);
             // 
-            // _errors
+            // ErrorProvider
             // 
-            this._errors.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this._errors.ContainerControl = this;
+            this.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.ErrorProvider.ContainerControl = this;
             // 
             // CreateCharacter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(282, 414);
             this.ControlBox = false;
             this.Controls.Add(this.cancelButton);
@@ -285,7 +286,7 @@ namespace CharacterCreator.WinHost
             this.Name = "CreateCharacter";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create New Character";
-            ((System.ComponentModel.ISupportInitialize)(this._errors)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -313,6 +314,6 @@ namespace CharacterCreator.WinHost
         private System.Windows.Forms.TextBox CharismaBox;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.ErrorProvider _errors;
+        private System.Windows.Forms.ErrorProvider ErrorProvider;
     }
 }

@@ -54,6 +54,18 @@ namespace CharacterCreator.WinHost
 
             UpdateUI();
         }
+        private void OnCharacterDelete ( object sender, EventArgs e )
+        {
+            var character = GetSelectedCharacter();
+            if (character == null)
+                return;
+            var result = MessageBox.Show(this, $"Are you sure you want to delete '{character.Name}'?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result != DialogResult.Yes)
+                return;
+            Icon = null;          
+            _character = null;
+            UpdateUI();
+        }
         private void UpdateUI ()
         {
             var count = (_character != null) ? 1 : 0;

@@ -46,20 +46,15 @@ namespace CharacterCreator.WinHost
         }
         private void OnSave ( object sender, EventArgs e )
         {
-            //Validate UI
             if (!ValidateChildren())
             {
                 DialogResult = DialogResult.None;
                 return;
             };
-
-            //Creating movie
             var character = SaveCharacter();
 
-            //TODO: Validation
             if (!character.Validate(out var error))
             {
-                //Must clear dialog result otherwise form will close anyway
                 MessageBox.Show(this, error, "Save", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DialogResult = DialogResult.None;
                 return;
@@ -98,11 +93,11 @@ namespace CharacterCreator.WinHost
 
             if (String.IsNullOrEmpty(control.Text))
             {
-                _errors.SetError(control, "Name is required");
+                ErrorProvider.SetError(control, "Name is required");
                 e.Cancel = true;
             } else
             {
-                _errors.SetError(control, "");
+                ErrorProvider.SetError(control, "");
             };
         }
 
@@ -114,11 +109,11 @@ namespace CharacterCreator.WinHost
 
             if (String.IsNullOrEmpty(Profession))
             {
-                _errors.SetError(control, "Profession is required");
+                ErrorProvider.SetError(control, "Profession is required");
                 e.Cancel = true;
             } else
             {
-                _errors.SetError(control, "");
+                ErrorProvider.SetError(control, "");
             };
         }
 
@@ -130,11 +125,11 @@ namespace CharacterCreator.WinHost
 
             if (String.IsNullOrEmpty(Race))
             {
-                _errors.SetError(control, "Race is required");
+                ErrorProvider.SetError(control, "Race is required");
                 e.Cancel = true;
             } else
             {
-                _errors.SetError(control, "");
+                ErrorProvider.SetError(control, "");
             };
         }
         private void OnValidatingStats ( object sender, CancelEventArgs e )
@@ -144,11 +139,11 @@ namespace CharacterCreator.WinHost
             var value = GetInt32(control);
             if (value < 0 || value > 100)
             {
-                _errors.SetError(control, "Attribute must be within 0 - 100");
+                ErrorProvider.SetError(control, "Attribute must be within 0 - 100");
                 e.Cancel = true;
             } else
             {
-                _errors.SetError(control, "");
+                ErrorProvider.SetError(control, "");
             };
         }
     }
