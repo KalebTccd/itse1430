@@ -48,5 +48,37 @@ namespace CharacterCreator.WinHost
                 _errors.SetError(control, "");
             };
         }
+
+        private void OnValidatingProfession ( object sender, CancelEventArgs e )
+        {
+            var control = sender as ComboBox;
+
+            var Profession = control.SelectedItem as string;
+
+            if (String.IsNullOrEmpty(Profession))
+            {
+                _errors.SetError(control, "Profession is required");
+                e.Cancel = true;
+            } else
+            {
+                _errors.SetError(control, "");
+            };
+        }
+
+        private void OnValidatingRace ( object sender, CancelEventArgs e )
+        {
+            var control = sender as ComboBox;
+
+            var Race = control.SelectedItem as string;
+
+            if (String.IsNullOrEmpty(Race))
+            {
+                _errors.SetError(control, "Race is required");
+                e.Cancel = true;
+            } else
+            {
+                _errors.SetError(control, "");
+            };
+        }
     }
 }

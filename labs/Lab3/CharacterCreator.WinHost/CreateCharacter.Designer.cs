@@ -94,6 +94,7 @@ namespace CharacterCreator.WinHost
             this.ProfessionComboBox.Name = "ProfessionComboBox";
             this.ProfessionComboBox.Size = new System.Drawing.Size(163, 28);
             this.ProfessionComboBox.TabIndex = 3;
+            this.ProfessionComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidatingProfession);
             // 
             // label1
             // 
@@ -118,6 +119,7 @@ namespace CharacterCreator.WinHost
             this.RaceComboBox.Name = "RaceComboBox";
             this.RaceComboBox.Size = new System.Drawing.Size(163, 28);
             this.RaceComboBox.TabIndex = 5;
+            this.RaceComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidatingRace);
             // 
             // BiographyLabel
             // 
@@ -232,6 +234,7 @@ namespace CharacterCreator.WinHost
             // 
             // cancelButton
             // 
+            this.cancelButton.CausesValidation = false;
             this.cancelButton.Location = new System.Drawing.Point(7, 373);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(94, 29);
