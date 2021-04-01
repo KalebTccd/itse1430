@@ -80,5 +80,19 @@ namespace CharacterCreator.WinHost
                 _errors.SetError(control, "");
             };
         }
+        private void OnValidatingStats ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            var value = GetInt32(control);
+            if (value < 0 || value > 100)
+            {
+                _errors.SetError(control, "Attribute must be within 0 - 100");
+                e.Cancel = true;
+            } else
+            {
+                _errors.SetError(control, "");
+            };
+        }
     }
 }

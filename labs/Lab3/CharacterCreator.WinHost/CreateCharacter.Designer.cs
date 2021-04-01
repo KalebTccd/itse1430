@@ -154,6 +154,7 @@ namespace CharacterCreator.WinHost
             this.StrengthBox.TabIndex = 9;
             this.StrengthBox.Tag = "";
             this.StrengthBox.Text = "50";
+            this.StrengthBox.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidatingStats);
             // 
             // IntelligenceLabel
             // 
@@ -171,6 +172,7 @@ namespace CharacterCreator.WinHost
             this.IntelligenceBox.Size = new System.Drawing.Size(163, 27);
             this.IntelligenceBox.TabIndex = 11;
             this.IntelligenceBox.Text = "50";
+            this.IntelligenceBox.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidatingStats);
             // 
             // AgilityLabel
             // 
@@ -188,6 +190,7 @@ namespace CharacterCreator.WinHost
             this.AgilityBox.Size = new System.Drawing.Size(163, 27);
             this.AgilityBox.TabIndex = 13;
             this.AgilityBox.Text = "50";
+            this.AgilityBox.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidatingStats);
             // 
             // ConstitutionLabel
             // 
@@ -205,6 +208,7 @@ namespace CharacterCreator.WinHost
             this.ConstitutionBox.Size = new System.Drawing.Size(163, 27);
             this.ConstitutionBox.TabIndex = 15;
             this.ConstitutionBox.Text = "50";
+            this.ConstitutionBox.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidatingStats);
             // 
             // CharismaLabel
             // 
@@ -222,6 +226,7 @@ namespace CharacterCreator.WinHost
             this.CharismaBox.Size = new System.Drawing.Size(163, 27);
             this.CharismaBox.TabIndex = 17;
             this.CharismaBox.Text = "50";
+            this.CharismaBox.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidatingStats);
             // 
             // SaveButton
             // 
