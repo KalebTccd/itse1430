@@ -36,6 +36,7 @@ namespace CharacterCreator.WinHost
             this.HelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.newCharacter = new System.Windows.Forms.ToolStripMenuItem();
+            this.editCharacter = new System.Windows.Forms.ToolStripMenuItem();
             this.DisplayListBox = new System.Windows.Forms.ListBox();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -90,7 +91,8 @@ namespace CharacterCreator.WinHost
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newCharacter});
+            this.newCharacter,
+            this.editCharacter});
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(86, 24);
             this.toolStripMenuItem3.Text = "&Character";
@@ -103,6 +105,15 @@ namespace CharacterCreator.WinHost
             this.newCharacter.Size = new System.Drawing.Size(250, 26);
             this.newCharacter.Text = "New Character";
             this.newCharacter.Click += new System.EventHandler(this.OnCharacterAdd);
+            // 
+            // editCharacter
+            // 
+            this.editCharacter.Name = "editCharacter";
+            this.editCharacter.ShortcutKeyDisplayString = "Ctrl + O";
+            this.editCharacter.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.editCharacter.Size = new System.Drawing.Size(250, 26);
+            this.editCharacter.Text = "Edit Character";
+            this.editCharacter.Click += new System.EventHandler(this.OnCharacterEdit);
             // 
             // DisplayListBox
             // 
@@ -143,6 +154,7 @@ namespace CharacterCreator.WinHost
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem newCharacter;
         private System.Windows.Forms.ListBox DisplayListBox;
+        private System.Windows.Forms.ToolStripMenuItem editCharacter;
     }
 }
 

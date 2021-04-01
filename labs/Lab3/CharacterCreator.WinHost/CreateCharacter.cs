@@ -21,6 +21,25 @@ namespace CharacterCreator.WinHost
         {
             base.OnFormClosing(e);
         }
+        protected override void OnLoad ( EventArgs e )
+        {
+            base.OnLoad(e);
+
+            if (Character != null)
+                LoadCharacter(Character);
+        }
+        private void LoadCharacter ( Character character )
+        {
+            NameBox.Text = character.Name;
+            ProfessionComboBox.SelectedItem = character.Profession;
+            RaceComboBox.SelectedItem = character.Race;
+            BiographyBox.Text = character.Biography;
+            StrengthBox.Text = character.Strength.ToString();
+            IntelligenceBox.Text = character.Intelligence.ToString();
+            AgilityBox.Text = character.Agility.ToString();
+            ConstitutionBox.Text = character.Constitution.ToString();
+            CharismaBox.Text = character.Charisma.ToString();
+        }
         private void OnCancel ( object sender, EventArgs e )
         {
             Close();
@@ -61,7 +80,7 @@ namespace CharacterCreator.WinHost
             character.Intelligence = GetInt32(IntelligenceBox);
             character.Agility = GetInt32(AgilityBox);
             character.Constitution = GetInt32(ConstitutionBox);
-            character.Constitution = GetInt32(CharismaBox);
+            character.Charisma = GetInt32(CharismaBox);
             return character;
         }
         private int GetInt32 ( Control control )

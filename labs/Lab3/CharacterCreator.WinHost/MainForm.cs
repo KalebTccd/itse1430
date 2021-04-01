@@ -38,6 +38,22 @@ namespace CharacterCreator.WinHost
 
             UpdateUI();
         }
+        private void OnCharacterEdit ( object sender, EventArgs e )
+        {
+            var character = GetSelectedCharacter();
+            if (character == null)
+                return;
+
+            var form = new CreateCharacter();
+            form.Character = character;
+
+            if (form.ShowDialog(this) == DialogResult.Cancel)
+                return;
+
+            _character = form.Character;
+
+            UpdateUI();
+        }
         private void UpdateUI ()
         {
             var count = (_character != null) ? 1 : 0;
@@ -46,6 +62,10 @@ namespace CharacterCreator.WinHost
                 character[0] = _character;
             DisplayListBox.DataSource = character;
             DisplayListBox.DisplayMember = "Name";
+        }
+        private Character GetSelectedCharacter()
+        {
+            return DisplayListBox.SelectedItem as Character;
         }
         private Character _character;
     }
