@@ -30,12 +30,16 @@ namespace CharacterCreator.WinHost
         private void OnCharacterAdd ( object sender, EventArgs e )
         {
             var form = new CreateCharacter();
+            do
+            {
+                if (form.ShowDialog(this) == DialogResult.Cancel)
+                    return;
 
-            if (form.ShowDialog(this) == DialogResult.Cancel)
-                return;
-
-            _character = form.Character;
-
+                _roster.Add(form.Character, out var error);
+                if (String.IsNullOrEmpty(error))
+                    break;
+                DisplayError("Add Failed", error);
+            } while (true);
             UpdateUI();
         }
         private void OnCharacterEdit ( object sender, EventArgs e )
@@ -79,7 +83,11 @@ namespace CharacterCreator.WinHost
         {
             return DisplayListBox.SelectedItem as Character;
         }
+        private void DisplayError ( string title, string message )
+        {
+            MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         private Character _character;
-        private ICharacterRoster _roster = new Memory.MemoryCharacterRoster();
+        private readonly Memory.MemoryCharacterRoster _roster = new Memory.MemoryCharacterRoster();
     }
 }

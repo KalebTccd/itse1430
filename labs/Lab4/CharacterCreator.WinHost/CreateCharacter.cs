@@ -53,13 +53,15 @@ namespace CharacterCreator.WinHost
             };
             var character = SaveCharacter();
 
-            if (!character.Validate(out var error))
+            var errors = new ObjectValidator().TryValidate(character);
+            if (errors.Count > 0)
             {
-                MessageBox.Show(this, error, "Save", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, errors[0].ErrorMessage, "Save", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DialogResult = DialogResult.None;
                 return;
             };
 
+            
             Character = character;
             DialogResult = DialogResult.OK;
             Close();

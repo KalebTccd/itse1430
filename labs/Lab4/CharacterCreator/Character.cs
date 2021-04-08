@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CharacterCreator
 {
     /// <summary>Represents a Character.</summary>
-    public class Character
+    public class Character : IValidatableObject
     {
         #region Properties
         /// <summary>A unique identifier for character</summary>
@@ -52,67 +54,57 @@ namespace CharacterCreator
         #endregion
 
         #region Methods
-        public bool Validate ( out string error )
+        public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
         {
+            var errors = new List<ValidationResult>();
             //Name is required
             if (String.IsNullOrEmpty(Name))
             {
-                error = "Name is required.";
-                return false;
+                errors.Add(new ValidationResult("Name is required."));
             };
 
             //Profssion within roles
             if (Profession != "Fighter" && Profession != "Hunter" && Profession != "Priest" && Profession != "Rogue" && Profession != "Wizard")
             {
-                error = "That is not a valid option";
-                return false;
+                errors.Add(new ValidationResult("That is not a valid option"));
             };
 
             //Race within roles
             if (Race != "Dwarf" && Race != "Elf" && Race != "Gnome" && Race != "Half Elf" && Race != "Human")
             {
-                error = "That is not a valid option";
-                return false;
+                errors.Add(new ValidationResult("That is not a valid option"));
             };
 
             // Strength < 0 || Strength > 100
             if (Strength < 0 || Strength > 100)
             {
-                error = "Strength must be within 0 - 100";
-                return false;
+                errors.Add(new ValidationResult("Strength must be within 0 - 100"));
             };
 
             // Intelligence < 0 || Intelligence > 100
             if (Intelligence < 0 || Intelligence > 100)
             {
-                error = "Intelligence must be within 0 - 100";
-                return false;
+                errors.Add(new ValidationResult("Intelligence must be within 0 - 100"));
             };
 
             // Agility < 0 || Agility > 100
             if (Agility < 0 || Agility > 100)
             {
-                error = "Agility must be within 0 - 100";
-                return false;
+                errors.Add(new ValidationResult("Agility must be within 0 - 100"));
             };
 
             // Constitution < 0 || Constitution > 100
             if (Constitution < 0 || Constitution > 100)
             {
-                error = "Constitution must be within 0 - 100";
-                return false;
+                errors.Add(new ValidationResult("Constitution must be within 0 - 100"));
             };
 
             // Charisma < 0 || Charisma > 100
             if (Charisma < 0 || Charisma > 100)
             {
-                error = "Charisma must be within 0 - 100";
-                return false;
+                errors.Add(new ValidationResult("Charisma must be within 0 - 100"));
             };
-
-
-            error = "";
-            return true;
+            return errors;
         }
         #endregion
     }

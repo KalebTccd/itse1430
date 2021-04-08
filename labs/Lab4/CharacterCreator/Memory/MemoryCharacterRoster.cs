@@ -4,27 +4,68 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace CharacterCreator.Memory
 {
     public class MemoryCharacterRoster : ICharacterRoster
     {
         private List<Character> _roster = new List<Character>();
+        private int _id = 0;
         public Character Add ( Character character, out string error )
         {
-            if(character == null)
+            if (character == null)
             {
                 error = "Movie is null";
                 return null;
             };
-            if (!character.Validate(out error))
+            var errors = new ObjectValidator().TryValidate(character);
+            if (errors.Count > 0)
             {
-                var errors = new ObjectValidator().TryValidate(character);
-                if (errors.Count > 0)
-                {
-                    error = errors[0].ErrorMessage;
-                    return null;
-                };
-            }
+                error = errors[0].ErrorMessage;
+                return null;
+            };
+            var existing = FindByName(character.Name);
+            if (existing != null)
+            {
+                error = "Name must be unique";
+                return null;
+            };
+            character.Id = ++_id;
+            _roster.Add(CloneCharacter(character));
+
+            error = null;
+            return character;
+        }
+        private Character CloneCharacter ( Character character )
+        {
+            var target = new Character() {
+                Id = character.Id
+            };
+
+            CopyCharacter(target, character);
+            return target;
+        }
+        private void CopyCharacter ( Character target, Character source )
+        {
+            target.Name = source.Name;
+            target.Profession = source.Profession;
+            target.Race = source.Race;
+            target.Biography = source.Biography;
+            target.Strength = source.Strength;
+            target.Intelligence = source.Intelligence;
+            target.Agility = source.Agility;
+            target.Constitution = source.Constitution;
+            target.Charisma = source.Charisma;
+        }
+            private Character FindByName ( string name )
+        {
+            foreach (var item in _roster)
+            {
+                //Match character by name, case insensitive
+                if (String.Compare(item.Name, name, true) == 0)
+                    return item;
+            };
+            return null;
         }
     }
 }
