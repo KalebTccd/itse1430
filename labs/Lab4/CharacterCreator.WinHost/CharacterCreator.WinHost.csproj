@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Product>Character Creator</Product>
+    <Authors>Kaleb Dreier</Authors>
+    <Company>Kaleb Dreier</Company>
+    <Copyright>ITSE 1430</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CharacterCreator\CharacterCreator.csproj" />
+  </ItemGroup>
+
+</Project>
