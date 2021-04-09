@@ -72,12 +72,12 @@ namespace CharacterCreator.WinHost
         }
         private void UpdateUI ()
         {
-            var count = (_character != null) ? 1 : 0;
-            Character[] character = new Character[count];
-            if (_character != null)
-                character[0] = _character;
-            DisplayListBox.DataSource = character;
-            DisplayListBox.DisplayMember = "Name";
+            var binding = new BindingSource();
+            binding.DataSource = _roster.GetAll();
+
+            DisplayListBox.DataSource = binding;
+            DisplayListBox.DisplayMember = nameof(Character.Name);
+
         }
         private Character GetSelectedCharacter()
         {

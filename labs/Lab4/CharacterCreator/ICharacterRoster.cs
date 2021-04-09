@@ -16,5 +16,9 @@ namespace CharacterCreator
         /// <exception cref="ValidationException"><paramref name="character"/> is invalid.</exception>
         /// <exception cref="InvalidOperationException"><paramref name="character"/>Movie is not unique.</exception>
         Character Add ( Character character, out string error );
+
+        /// <summary>Gets all the characters.</summary>
+        /// <returns>All Characters.</returns>
+        IEnumerable<Character> GetAll ();
     }
 }

@@ -10,7 +10,7 @@ namespace CharacterCreator.Memory
     public class MemoryCharacterRoster : ICharacterRoster
     {
         private List<Character> _roster = new List<Character>();
-        private int _id = 0;
+        private int _id;
         public Character Add ( Character character, out string error )
         {
             if (character == null)
@@ -35,6 +35,14 @@ namespace CharacterCreator.Memory
 
             error = null;
             return character;
+        }
+        public IEnumerable<Character> GetAll ()
+        {
+            var items = new Character[_roster.Count];
+            int index = 0;
+            foreach (var item in _roster)
+                items[index++] = CloneCharacter(item);
+            return items;
         }
         private Character CloneCharacter ( Character character )
         {
