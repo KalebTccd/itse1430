@@ -20,5 +20,15 @@ namespace CharacterCreator
         /// <summary>Gets all the characters.</summary>
         /// <returns>All Characters.</returns>
         IEnumerable<Character> GetAll ();
+
+        /// <summary>Updates an existing character.</summary>
+        /// <param name="id">The ID of the character to update.</param>
+        /// <param name="movie">The updated character.</param>
+        /// <exception cref="Exception">Character does not exist.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="id"/> is less than one.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="movie"/> is null.</exception>
+        /// <exception cref="ValidationException"><paramref name="movie"/> is invalid.</exception>
+        /// <exception cref="InvalidOperationException"><paramref name="movie"/>Character is not unique.</exception>
+        void Update ( int id, Character character, out string error );
     }
 }

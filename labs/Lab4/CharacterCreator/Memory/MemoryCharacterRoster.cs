@@ -44,6 +44,45 @@ namespace CharacterCreator.Memory
                 items[index++] = CloneCharacter(item);
             return items;
         }
+        public void Update ( int id, Character character, out string error )
+        {
+            if (character == null)
+            {
+                error = "Movie is null";
+                return;
+            };
+
+            var errors = new ObjectValidator().TryValidate(character);
+            if (errors.Count > 0)
+            {
+                error = errors[0].ErrorMessage;
+                return;
+            };
+
+            if (id <= 0)
+            {
+                error = "Id must be greater than zero.";
+                return;
+            };
+
+            var existing = FindByName(character.Name);
+            if (existing != null && existing.Id != id)
+            {
+                error = "Movie title must be unique";
+                return;
+            };
+
+            existing = FindById(id);
+            if (existing == null)
+            {
+                error = "Movie does not exist";
+                return;
+            };
+
+            error = null;
+
+            CopyCharacter(existing, character);
+        }
         private Character CloneCharacter ( Character character )
         {
             var target = new Character() {
@@ -65,14 +104,23 @@ namespace CharacterCreator.Memory
             target.Constitution = source.Constitution;
             target.Charisma = source.Charisma;
         }
-            private Character FindByName ( string name )
+        private Character FindByName ( string name )
         {
             foreach (var item in _roster)
             {
-                //Match character by name, case insensitive
                 if (String.Compare(item.Name, name, true) == 0)
                     return item;
             };
+            return null;
+        }
+        private Character FindById ( int id )
+        {
+            foreach (var item in _roster)
+            {
+                if (item.Id == id)
+                    return item;
+            };
+
             return null;
         }
     }

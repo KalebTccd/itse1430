@@ -12,7 +12,7 @@ namespace CharacterCreator.WinHost
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        public MainForm ()
         {
             InitializeComponent();
         }
@@ -44,6 +44,7 @@ namespace CharacterCreator.WinHost
         }
         private void OnCharacterEdit ( object sender, EventArgs e )
         {
+
             var character = GetSelectedCharacter();
             if (character == null)
                 return;
@@ -51,12 +52,19 @@ namespace CharacterCreator.WinHost
             var form = new CreateCharacter();
             form.Character = character;
 
-            if (form.ShowDialog(this) == DialogResult.Cancel)
-                return;
+            do
+            {
+                if (form.ShowDialog(this) == DialogResult.Cancel)
+                    return;
 
-            _character = form.Character;
+                _roster.Update(character.Id, form.Character, out var error);
+                if (String.IsNullOrEmpty(error))
+                    break;
+                DisplayError("Add Failed", error);
+            } while (true);
 
             UpdateUI();
+
         }
         private void OnCharacterDelete ( object sender, EventArgs e )
         {
@@ -66,7 +74,7 @@ namespace CharacterCreator.WinHost
             var result = MessageBox.Show(this, $"Are you sure you want to delete '{character.Name}'?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes)
                 return;
-            Icon = null;          
+            Icon = null;
             _character = null;
             UpdateUI();
         }
@@ -79,7 +87,7 @@ namespace CharacterCreator.WinHost
             DisplayListBox.DisplayMember = nameof(Character.Name);
 
         }
-        private Character GetSelectedCharacter()
+        private Character GetSelectedCharacter ()
         {
             return DisplayListBox.SelectedItem as Character;
         }
