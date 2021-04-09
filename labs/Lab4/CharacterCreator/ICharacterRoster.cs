@@ -1,8 +1,11 @@
-﻿using System;
+﻿/*
+ * Charcter Creator
+ * ITSE 1430
+ * Spring 2021
+ * Kaleb Dreier
+ */
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterCreator
 {

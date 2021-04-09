@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * Charcter Creator
+ * ITSE 1430
+ * Spring 2021
+ * Kaleb Dreier
+ */
+using System;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CharacterCreator.WinHost

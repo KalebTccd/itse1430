@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Charcter Creator
+ * ITSE 1430
+ * Spring 2021
+ * Kaleb Dreier
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 

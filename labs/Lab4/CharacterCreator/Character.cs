@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Charcter Creator
+ * ITSE 1430
+ * Spring 2021
+ * Kaleb Dreier
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -50,7 +56,6 @@ namespace CharacterCreator
         private string _profession;
         private string _race;
         private string _biography;
-        private int _id;
         #endregion
 
         #region Methods
