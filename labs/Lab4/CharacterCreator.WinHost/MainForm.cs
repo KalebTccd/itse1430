@@ -74,8 +74,7 @@ namespace CharacterCreator.WinHost
             var result = MessageBox.Show(this, $"Are you sure you want to delete '{character.Name}'?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes)
                 return;
-            Icon = null;
-            _character = null;
+            _roster.Delete(character.Id, out var error);
             UpdateUI();
         }
         private void UpdateUI ()
@@ -95,7 +94,6 @@ namespace CharacterCreator.WinHost
         {
             MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        private Character _character;
         private readonly Memory.MemoryCharacterRoster _roster = new Memory.MemoryCharacterRoster();
     }
 }

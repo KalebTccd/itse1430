@@ -83,6 +83,19 @@ namespace CharacterCreator.Memory
 
             CopyCharacter(existing, character);
         }
+        public void Delete ( int id, out string error )
+        {
+            if (id <= 0)
+            {
+                error = "Id must be greater than zero.";
+                return;
+            };
+            error = null;
+
+            var existing = FindById(id);
+            if (existing != null)
+                _roster.Remove(existing);
+        }
         private Character CloneCharacter ( Character character )
         {
             var target = new Character() {

@@ -30,5 +30,10 @@ namespace CharacterCreator
         /// <exception cref="ValidationException"><paramref name="movie"/> is invalid.</exception>
         /// <exception cref="InvalidOperationException"><paramref name="movie"/>Character is not unique.</exception>
         void Update ( int id, Character character, out string error );
+
+        /// <summary>Deletes a Character.</summary>
+        /// <param name="id">The ID of the Character.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="id"/> is less than one.</exception>
+        void Delete ( int id, out string error );
     }
 }
