@@ -18,7 +18,7 @@ namespace CharacterCreator
         /// <exception cref="ArgumentNullException"><paramref name="character"/> is null.</exception>
         /// <exception cref="ValidationException"><paramref name="character"/> is invalid.</exception>
         /// <exception cref="InvalidOperationException"><paramref name="character"/>character is not unique.</exception>
-        Character Add ( Character character, out string error );
+        Character Add ( Character character);
 
         /// <summary>Gets all the characters.</summary>
         /// <returns>All Characters.</returns>
@@ -32,11 +32,11 @@ namespace CharacterCreator
         /// <exception cref="ArgumentNullException"><paramref name="movie"/> is null.</exception>
         /// <exception cref="ValidationException"><paramref name="movie"/> is invalid.</exception>
         /// <exception cref="InvalidOperationException"><paramref name="movie"/>Character is not unique.</exception>
-        void Update ( int id, Character character, out string error );
+        void Update ( int id, Character character);
 
         /// <summary>Deletes a Character.</summary>
         /// <param name="id">The ID of the Character.</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="id"/> is less than one.</exception>
-        void Delete ( int id, out string error );
+        void Delete ( int id);
     }
 }
