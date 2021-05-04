@@ -34,10 +34,17 @@ namespace CharacterCreator.WinHost
                 if (form.ShowDialog(this) == DialogResult.Cancel)
                     return;
 
-                _roster.Add(form.Character, out var error);
-                if (String.IsNullOrEmpty(error))
+                try
+                {
+                    _roster.Add(form.Character);
                     break;
-                DisplayError("Add Failed", error);
+                } catch (ArgumentException ex)
+                {
+                    DisplayError("Add Failed", "You didn't pass the args right");
+                } catch (Exception ex)
+                {
+                    DisplayError("Add Failed", ex.Message);
+                };
             } while (true);
             UpdateUI();
         }
@@ -56,10 +63,14 @@ namespace CharacterCreator.WinHost
                 if (form.ShowDialog(this) == DialogResult.Cancel)
                     return;
 
-                _roster.Update(character.Id, form.Character, out var error);
-                if (String.IsNullOrEmpty(error))
+                try
+                {
+                    _roster.Update(character.Id, form.Character);
                     break;
-                DisplayError("Add Failed", error);
+                } catch (Exception ex)
+                {
+                    DisplayError("Add Failed", ex.Message);
+                };
             } while (true);
 
             UpdateUI();
@@ -73,7 +84,13 @@ namespace CharacterCreator.WinHost
             var result = MessageBox.Show(this, $"Are you sure you want to delete '{character.Name}'?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes)
                 return;
-            _roster.Delete(character.Id, out var error);
+            try
+            {
+                _roster.Delete(character.Id);
+            } catch (Exception ex)
+            {
+                DisplayError("Delete Failed", ex.Message);
+            };
             UpdateUI();
         }
         private void UpdateUI ()
