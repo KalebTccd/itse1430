@@ -6,6 +6,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace CharacterCreator.Memory
@@ -14,29 +15,17 @@ namespace CharacterCreator.Memory
     {
         private List<Character> _roster = new List<Character>();
         private int _id;
-        public Character Add ( Character character, out string error )
+        public Character Add ( Character character )
         {
             if (character == null)
-            {
-                error = "Movie is null";
-                return null;
-            };
-            var errors = new ObjectValidator().TryValidate(character);
-            if (errors.Count > 0)
-            {
-                error = errors[0].ErrorMessage;
-                return null;
-            };
+                throw new ArgumentNullException(nameof(character));
+            ObjectValidator.Validate(character);
             var existing = FindByName(character.Name);
             if (existing != null)
-            {
-                error = "Name must be unique";
-                return null;
-            };
+                throw new InvalidOperationException("Name must be unique.");
             character.Id = ++_id;
             _roster.Add(CloneCharacter(character));
 
-            error = null;
             return character;
         }
         public IEnumerable<Character> GetAll ()
@@ -47,42 +36,20 @@ namespace CharacterCreator.Memory
                 items[index++] = CloneCharacter(item);
             return items;
         }
-        public void Update ( int id, Character character, out string error )
+        public void Update ( int id, Character character )
         {
             if (character == null)
-            {
-                error = "Movie is null";
-                return;
-            };
-
-            var errors = new ObjectValidator().TryValidate(character);
-            if (errors.Count > 0)
-            {
-                error = errors[0].ErrorMessage;
-                return;
-            };
-
+                throw new ArgumentNullException(nameof(character));
+            ObjectValidator.Validate(character);
             if (id <= 0)
-            {
-                error = "Id must be greater than zero.";
-                return;
-            };
-
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than 0.");
             var existing = FindByName(character.Name);
             if (existing != null && existing.Id != id)
-            {
-                error = "Movie title must be unique";
-                return;
-            };
+                throw new InvalidOperationException("Name must be unique.");
 
             existing = FindById(id);
             if (existing == null)
-            {
-                error = "Movie does not exist";
-                return;
-            };
-
-            error = null;
+                throw new ArgumentNullException("Id does not exist");
 
             CopyCharacter(existing, character);
         }

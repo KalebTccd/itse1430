@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace CharacterCreator
 {
@@ -61,55 +62,7 @@ namespace CharacterCreator
         #region Methods
         public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
         {
-            var errors = new List<ValidationResult>();
-            //Name is required
-            if (String.IsNullOrEmpty(Name))
-            {
-                errors.Add(new ValidationResult("Name is required."));
-            };
-
-            //Profssion within roles
-            if (Profession != "Fighter" && Profession != "Hunter" && Profession != "Priest" && Profession != "Rogue" && Profession != "Wizard")
-            {
-                errors.Add(new ValidationResult("That is not a valid option"));
-            };
-
-            //Race within roles
-            if (Race != "Dwarf" && Race != "Elf" && Race != "Gnome" && Race != "Half Elf" && Race != "Human")
-            {
-                errors.Add(new ValidationResult("That is not a valid option"));
-            };
-
-            // Strength < 0 || Strength > 100
-            if (Strength < 0 || Strength > 100)
-            {
-                errors.Add(new ValidationResult("Strength must be within 0 - 100"));
-            };
-
-            // Intelligence < 0 || Intelligence > 100
-            if (Intelligence < 0 || Intelligence > 100)
-            {
-                errors.Add(new ValidationResult("Intelligence must be within 0 - 100"));
-            };
-
-            // Agility < 0 || Agility > 100
-            if (Agility < 0 || Agility > 100)
-            {
-                errors.Add(new ValidationResult("Agility must be within 0 - 100"));
-            };
-
-            // Constitution < 0 || Constitution > 100
-            if (Constitution < 0 || Constitution > 100)
-            {
-                errors.Add(new ValidationResult("Constitution must be within 0 - 100"));
-            };
-
-            // Charisma < 0 || Charisma > 100
-            if (Charisma < 0 || Charisma > 100)
-            {
-                errors.Add(new ValidationResult("Charisma must be within 0 - 100"));
-            };
-            return errors;
+            return Enumerable.Empty<ValidationResult>();
         }
         #endregion
     }
