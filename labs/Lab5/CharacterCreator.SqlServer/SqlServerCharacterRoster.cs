@@ -31,7 +31,27 @@ namespace CharacterCreator.SqlServer
         }
         public Character Add ( Character character )
         {
-            throw new NotImplementedException();
+            using (var conn = OpenConnection())
+            {
+                var cmd = new SqlCommand("AddCharacter", conn) {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                cmd.Parameters.Add(new SqlParameter("@name", character.Name));
+                cmd.Parameters.AddWithValue("@Description", character.Biography);
+                cmd.Parameters.AddWithValue("@Profession", character.Profession);
+                cmd.Parameters.AddWithValue("@Race", character.Race);
+                cmd.Parameters.AddWithValue("@Attribute1", character.Strength);
+                cmd.Parameters.AddWithValue("@Attribute2", character.Intelligence);
+                cmd.Parameters.AddWithValue("@Attribute3", character.Agility);
+                cmd.Parameters.AddWithValue("@Attribute4", character.Constitution);
+                cmd.Parameters.AddWithValue("@Attribute5", character.Charisma);
+
+                object result = cmd.ExecuteScalar();
+
+                character.Id = Convert.ToInt32(result);
+            };
+
+            return character;
         }
 
         public void Delete ( int id )
@@ -60,7 +80,7 @@ namespace CharacterCreator.SqlServer
                         yield return new Character() {
                             Id = row.Field<int>("Id"),
                             Name = row.Field<string>("Name"), 
-                            Biography = row.IsNull(2) ? null : (string)row[2],
+                            Biography = row.IsNull(2) ? null : row.Field<string>("Description"),
                             Profession = row.Field<string>("Profession"),
                             Race = row.Field<string>("Race"),
                             Strength = row.Field<int>("Attribute1"),

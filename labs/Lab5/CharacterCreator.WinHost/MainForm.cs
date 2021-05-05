@@ -104,7 +104,7 @@ namespace CharacterCreator.WinHost
         }
         private void UpdateUI ()
         {
-            DisplayListBox.DisplayMember = "Title";
+            DisplayListBox.DisplayMember = "Name";
 
             try
             {
