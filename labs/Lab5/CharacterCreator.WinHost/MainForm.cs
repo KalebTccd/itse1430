@@ -5,6 +5,7 @@
  * Kaleb Dreier
  */
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace CharacterCreator.WinHost
@@ -15,6 +16,14 @@ namespace CharacterCreator.WinHost
         {
             InitializeComponent();
         }
+        protected override void OnLoad ( EventArgs e )
+        {
+            base.OnLoad(e);
+
+            _roster.GetAll();
+            UpdateUI();
+        }
+
         private void OnFileExit ( object sender, EventArgs e )
         {
             Close();
@@ -95,11 +104,20 @@ namespace CharacterCreator.WinHost
         }
         private void UpdateUI ()
         {
-            var binding = new BindingSource();
-            binding.DataSource = _roster.GetAll();
+            DisplayListBox.DisplayMember = "Title";
 
-            DisplayListBox.DataSource = binding;
-            DisplayListBox.DisplayMember = nameof(Character.Name);
+            try
+            {
+                var characters = from m in _roster.GetAll()
+                                 select m;
+
+                DisplayListBox.DataSource = characters.ToArray();
+            } catch (Exception e)
+            {
+                DisplayError("Error retrieving characters", e.Message);
+
+                DisplayListBox.DataSource = new Character[0];
+            };
 
         }
         private Character GetSelectedCharacter ()
@@ -110,6 +128,6 @@ namespace CharacterCreator.WinHost
         {
             MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        private readonly SqlServer.SqlServerCharacterRoster _roster = new SqlServer.SqlServerCharacterRoster("Data Source=(localdb)\\ProjectsV13; Initial Catalog = master; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        private readonly ICharacterRoster _roster = new SqlServer.SqlServerCharacterRoster(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=CharacterDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
     }
 }

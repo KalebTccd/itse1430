@@ -22,6 +22,13 @@ namespace CharacterCreator.SqlServer
         {
             _connectionString = connectionString;
         }
+        private SqlConnection OpenConnection ()
+        {
+            var conn = new SqlConnection(_connectionString);
+            conn.Open();
+
+            return conn;
+        }
         public Character Add ( Character character )
         {
             throw new NotImplementedException();
@@ -34,7 +41,37 @@ namespace CharacterCreator.SqlServer
 
         public IEnumerable<Character> GetAll ()
         {
-            throw new NotImplementedException();
+            using (var conn = OpenConnection())
+            {
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "GetAllCharacters";
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                var ds = new DataSet();
+                var da = new SqlDataAdapter() {
+                    SelectCommand = cmd   
+                };
+                da.Fill(ds);
+                var table = ds.Tables.OfType<DataTable>().FirstOrDefault();
+                if (table != null)
+                {
+                    foreach (var row in table.Rows.OfType<DataRow>())
+                    {
+                        yield return new Character() {
+                            Id = row.Field<int>("Id"),
+                            Name = row.Field<string>("Name"), 
+                            Biography = row.IsNull(2) ? null : (string)row[2],
+                            Profession = row.Field<string>("Profession"),
+                            Race = row.Field<string>("Race"),
+                            Strength = row.Field<int>("Attribute1"),
+                            Intelligence = row.Field<int>("Attribute2"),
+                            Agility = row.Field<int>("Attribute3"),
+                            Constitution = row.Field<int>("Attribute4"),
+                            Charisma = row.Field<int>("Attribute5"),
+                        };
+                    };
+                };
+            };
         }
 
         public void Update ( int id, Character character )
