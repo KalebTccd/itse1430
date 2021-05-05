@@ -96,7 +96,26 @@ namespace CharacterCreator.SqlServer
 
         public void Update ( int id, Character character )
         {
-            throw new NotImplementedException();
+            using (var conn = OpenConnection())
+            {
+                var cmd = new SqlCommand("UpdateCharacter", conn) {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.Add(new SqlParameter("@name", character.Name));
+                cmd.Parameters.AddWithValue("@Description", character.Biography);
+                cmd.Parameters.AddWithValue("@Profession", character.Profession);
+                cmd.Parameters.AddWithValue("@Race", character.Race);
+                cmd.Parameters.AddWithValue("@Attribute1", character.Strength);
+                cmd.Parameters.AddWithValue("@Attribute2", character.Intelligence);
+                cmd.Parameters.AddWithValue("@Attribute3", character.Agility);
+                cmd.Parameters.AddWithValue("@Attribute4", character.Constitution);
+                cmd.Parameters.AddWithValue("@Attribute5", character.Charisma);
+                cmd.Parameters.AddWithValue("@id", id);
+
+
+                cmd.ExecuteNonQuery();
+            };
         }
         private readonly string _connectionString;
     }
