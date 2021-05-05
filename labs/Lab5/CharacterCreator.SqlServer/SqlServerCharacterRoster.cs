@@ -56,7 +56,14 @@ namespace CharacterCreator.SqlServer
 
         public void Delete ( int id )
         {
-            throw new NotImplementedException();
+            using (var conn = OpenConnection())
+            {
+                var cmd = new SqlCommand("DeleteCharacter", conn) {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+            };
         }
 
         public IEnumerable<Character> GetAll ()
