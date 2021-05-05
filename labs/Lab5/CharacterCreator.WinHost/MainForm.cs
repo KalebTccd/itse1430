@@ -110,6 +110,6 @@ namespace CharacterCreator.WinHost
         {
             MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        private readonly Memory.MemoryCharacterRoster _roster = new Memory.MemoryCharacterRoster();
+        private readonly SqlServer.SqlServerCharacterRoster _roster = new SqlServer.SqlServerCharacterRoster("Data Source=(localdb)\\ProjectsV13; Initial Catalog = master; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
     }
 }
